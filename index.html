@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Library Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://images.unsplash.com/photo-1570129477492-45c003edd2be') no-repeat center center fixed;
+      background-size: cover;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      z-index: -1;
+    }
+    header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+    .role-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    .role-buttons button {
+      padding: 20px 40px;
+      font-size: 20px;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .role-buttons button:first-child {
+      background-color: #343a40;
+    }
+    .role-buttons button:last-child {
+      background-color: #6c757d;
+    }
+    .role-buttons button:hover {
+      opacity: 0.9;
+    }
+    #adminLogin {
+      display: none;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    #adminLogin input {
+      width: 280px;
+      padding: 12px;
+      margin: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #adminLogin button {
+      padding: 10px 25px;
+      font-size: 16px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+    #adminLogin button:first-of-type {
+      background-color: #007bff;
+    }
+    #adminLogin button:last-of-type {
+      background-color: #28a745;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    nav button {
+      padding: 10px 20px;
+      font-size: 15px;
+      border: none;
+      border-radius: 5px;
+      background-color: #17a2b8;
+      color: white;
+      cursor: pointer;
+    }
+    nav button:hover {
+      background-color: #138496;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    input, button[type="submit"] {
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+    button[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #dee2e6;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+  <div style="display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: auto;">
+    <h1 style="font-size: 28px; margin: 0;">E-Library</h1>
+    <nav style="display: flex; gap: 15px;">
+      <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Home</a>
+      <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Catalog</a>
+      <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Support</a>
+      <a href="#" style="color: white; text-decoration: none; font-weight: bold;">Contact</a>
+    </nav>
+  </div>
+</header>
+  <div class="container">
+    <div class="role-buttons">
+  <div style="text-align: center;">
+    <img src="https://cdn-icons-png.flaticon.com/512/1077/1077063.png" alt="Admin" onclick="toggleAdminLogin()" style="width: 100px; height: 100px; cursor: pointer; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+    <p style="margin-top: 10px; font-weight: bold;">Admin</p>
+  </div>
+  <div style="text-align: center;">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="Student" style="width: 100px; height: 100px; cursor: pointer; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+    <p style="margin-top: 10px; font-weight: bold;">Student</p>
+  </div>
+</div>
+
+    <div id="adminLogin">
+      <h2>Admin Login</h2>
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Password" />
+      <br />
+      <button>Login</button>
+      <button>Sign Up</button>
+    </div>
+
+    <nav>
+      <button onclick="filterCategory('books')">Search Books</button>
+      <button onclick="filterCategory('author')">Search Author</button>
+      <button onclick="filterCategory('articles')">Popular Articles</button>
+      <button onclick="filterCategory('newspaper')">Newspapers</button>
+      <button onclick="filterCategory('upcoming')">Upcoming</button>
+      <button onclick="filterCategory('launches')">New Launches</button>
+    </nav>
+
+    <section style="margin-top: 30px;">
+  <h2 style="text-align: center; color: #333;">Add a New Book</h2>
+  <form id="bookForm" style="max-width: 600px; margin: auto;">
+    <input type="text" id="title" placeholder="Book Title" required />
+    <input type="text" id="author" placeholder="Author" required />
+    <button type="submit">Add Book</button>
+  </form>
+</section>
+
+    <section style="margin-top: 30px;">
+  <h2 style="text-align: center; color: #333;">Book List</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+      </tr>
+    </thead>
+    <tbody id="bookList"></tbody>
+  </table>
+</section>
+
+    <section style="margin-top: 40px; text-align: center;">
+      <h2 style="color: #333;">Why Use Our E-Library?</h2>
+      <p style="max-width: 800px; margin: auto; color: #555; font-size: 16px;">
+        Access thousands of books, articles, and journals from any device. Our platform helps you manage
+        your reading lists, discover new content, and stay updated with the latest publications.
+      </p>
+    </section>
+
+    <section style="margin-top: 40px;">
+      <h2 style="text-align: center; color: #333;">Featured Collections</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+        <div style="width: 220px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c" alt="Fiction" style="width: 100%; border-radius: 8px;">
+          <h4 style="margin-top: 10px;">Modern Fiction</h4>
+        </div>
+        <div style="width: 220px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <img src="https://images.unsplash.com/photo-1573497019414-1979f3b30d7e" alt="Science" style="width: 100%; border-radius: 8px;">
+          <h4 style="margin-top: 10px;">Science & Tech</h4>
+        </div>
+        <div style="width: 220px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e" alt="History" style="width: 100%; border-radius: 8px;">
+          <h4 style="margin-top: 10px;">World History</h4>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    let books = [];
+    let bookId = 1;
+
+    document.getElementById("bookForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const title = document.getElementById("title").value;
+      const author = document.getElementById("author").value;
+      const book = { id: bookId++, title, author };
+      books.push(book);
+      displayBooks();
+      this.reset();
+    });
+
+    function displayBooks() {
+      const list = document.getElementById("bookList");
+      list.innerHTML = "";
+      books.forEach((book) => {
+        const row = `<tr><td>${book.id}</td><td>${book.title}</td><td>${book.author}</td></tr>`;
+        list.innerHTML += row;
+      });
+    }
+
+    function filterCategory(category) {
+      alert(`This feature (${category}) is under development.`);
+    }
+
+    function toggleAdminLogin() {
+      const loginBox = document.getElementById("adminLogin");
+      loginBox.style.display = loginBox.style.display === "none" ? "block" : "none";
+    }
+  </script>
+</body>
+</html>
